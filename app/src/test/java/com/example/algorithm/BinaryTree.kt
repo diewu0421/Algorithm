@@ -66,18 +66,20 @@ class BinaryTree {
             data = 1,
             left = TreeNode(
                 data = 10,
-                right = TreeNode(data = 3)
+                right = TreeNode(data = 3),
+                left =  TreeNode(8)
+
             ),
             right = TreeNode(
                 data = 2,
-//                left = TreeNode(
-//                    data = 7,
+                left = TreeNode(
+                    data = 7,
 //                    right = TreeNode(data = 8),
 //                    left = TreeNode(data = 9)
-
-//                ),
+//
+                ),
 //                right = TreeNode(
-//                    data = 3,
+//                    data = 11,
 //                    right = TreeNode(
 //                        data = 4,
 //                        right = TreeNode(data = 5)
@@ -99,6 +101,122 @@ class BinaryTree {
         }
     }
 
+    fun LRD(root: TreeNode<Int>?) {
+
+        root ?: return
+
+        LRD(root.left)
+        LRD(root.right)
+
+        print("${root.data} ")
+    }
+
+    fun posOrderUnRecur2(root: TreeNode<Int>?) {  //使用一个栈
+        var p = root
+        val stack = Stack<TreeNode<Int>>()
+        stack.push(root)
+
+        while (stack.isNotEmpty()) {
+            val cur = stack.peek()
+
+            if (cur.left != null && p != cur.left && p != cur.right) {
+                stack.push(cur.left)
+
+            } else if (cur.right != null && p != cur.right ) {
+
+                stack.push(cur.right)
+
+            } else {
+                print("${stack.pop().data} ")
+                p = cur
+            }
+        }
+
+    }
+    fun inorderWithRec(root: TreeNode<Int>?) {
+
+        root ?: return
+        inorderWithRec(root.left)
+        print("${root.data} ")
+        inorderWithRec(root.right)
+
+
+    }
+    fun preOrder(root: TreeNode<Int>?) {
+
+//        root ?: return
+//        print("${root.data} ")
+//        preOrder(root.left)
+//        preOrder(root.right)
+
+        val stack = Stack<TreeNode<Int>>()
+        var cur = root
+
+        while (stack.isNotEmpty() || cur != null) {
+            while (cur != null) {
+                stack.push(cur)
+                cur = cur.left
+            }
+
+            cur = stack.pop()
+
+            print("${cur.data} ")
+
+            cur = cur?.right
+
+//            stack.offer(cur)
+        }
+
+
+    }
+    fun inorder(root: TreeNode<Int>?) {
+        val stack = LinkedList<TreeNode<Int>>()
+        stack.push(root)
+
+        while (stack.isNotEmpty()) {
+            val node = stack.pop()
+            print("${node.data} ")
+
+            if (node.left != null) {
+                stack.offer(node.left)
+
+            }
+            if (node.right != null) {
+                stack.offer(node.right)
+            }
+        }
+
+    }
+
+    fun postOrder(root: TreeNode<Int>?) {
+        if (root == null) return
+        val stack = Stack<TreeNode<Int>>()
+
+        stack.push(root)
+
+        var head = root
+
+        while (stack.isNotEmpty()) {
+            val top = stack.peek()
+
+            if (top.left != null && top.left != head && top.right != head) {
+
+
+                stack.push(top.left)
+
+            } else if (top?.right != null && top.right != head) {
+                stack.push(top.right)
+
+            } else {
+                val pop = stack.pop()
+                print("${pop.data} ")
+
+                head = top
+
+            }
+        }
+    }
+
     private val list: ArrayList<TreeNode<Int>> = ArrayList()
 
 
@@ -107,11 +225,18 @@ class BinaryTree {
         if (root.left != null) {
             getInorder(root.left)
         }
-        list.add(root)
+//        list.add(root)
+        print("${root.data} ")
 
         if (root.right != null) {
             getInorder(root.right)
         }
+    }
+    fun getPosorder(root: TreeNode<Int>?) {
+        root?: return
+        getPosorder(root.left)
+        getPosorder(root.right)
+        print("${root.data} ")
     }
 
     fun buildBLR(l: Int, r: Int) : TreeNode<Int> {
@@ -151,7 +276,7 @@ class BinaryTree {
 
         while (list.isNotEmpty()) {
             val item = list.pop()
-            print("${item.`val`} ")
+            print("${item.data} ")
             if (item.left != null) {
                 list.offer(item.left)
 
@@ -197,7 +322,7 @@ class BinaryTree {
         return height2(root) >=0
     }
 
-    private fun height2(root:TreeNode<Int>?) : Int {
+    private fun height2(root: TreeNode<Int>?) : Int {
         aoto.incrementAndGet()
         if (root== null) {
             return 0

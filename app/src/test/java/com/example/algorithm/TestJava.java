@@ -10,6 +10,18 @@ import javax.xml.transform.Source;
  */
 
 class TestJava {
+    public static int[][] result=new int[][]{
+            {8, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 3, 6, 0, 0, 0, 0, 0},
+            {0, 7, 0, 0, 9, 0, 2, 0, 0},
+            {0, 5, 0, 0, 0, 7, 0, 0, 0},
+            {0, 0, 0, 0, 4, 5, 7, 0, 0},
+            {0, 0, 0, 1, 0, 0, 0, 3, 0},
+            {0, 0, 1, 0, 0, 0, 0, 6, 8},
+            {0, 0, 8, 5, 0, 0, 0, 1, 0},
+            {0, 9, 0, 0, 0, 0, 4, 0, 0}
+    };
+
     public void test11() {
         System.out.println("test111");
         int[] ints = {1, 2, 3};
@@ -55,6 +67,8 @@ class TestJava {
         if (carry == 1) {
             builder.append(carry);
         }
+
+        String str = "hello";
         //反转字符串获得正常结果
 //        return builder.reverse().toString();
     }
